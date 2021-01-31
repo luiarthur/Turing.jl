@@ -26,4 +26,8 @@ jobs:
           # TODO: Send to BenchmarkReports?
           echo 'Printing results/results.json:' && cat results/results.json
           "
-                
+      - name: Upload benchmark results to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: benchmark-results
+          path: benchmarks-new/results/results.json
