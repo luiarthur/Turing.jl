@@ -20,7 +20,7 @@ jobs:
       - name: Run Turing benchmarks
         run: |
           bash -c "
-          cd benchmarks-new
+          cd benchmarks
           julia -e 'import Pkg; Pkg.activate(\".\"); Pkg.dev(path=\"..\"); Pkg.instantiate()'
           julia run-benchmarks.jl
           # TODO: Send to BenchmarkReports?
@@ -29,4 +29,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: benchmark-results
-          path: benchmarks-new/results/results.json
+          path: benchmarks/results/results.json
