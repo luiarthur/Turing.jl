@@ -1,4 +1,4 @@
-name: CI
+name: Benchmarks
 
 on: [push]
 
@@ -21,7 +21,7 @@ jobs:
         run: |
           bash -c '
           cd benchmarks-new
-          julia -e "import Pkg; Pkg.instantiate()"
+          julia -e "import Pkg; Pkg.activate("."); Pkg.instantiate()"
           julia run-benchmarks.jl
           # TODO: Send to BenchmarkReports?
           echo "Printing results/results.json:" && cat results/results.json
