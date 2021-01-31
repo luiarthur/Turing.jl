@@ -6,6 +6,8 @@
 - [X] Benchmarks are triggered by push events on GitHub, via GitHub Actions.
       See `/.github/workflows/Benchmarks.yml`.
 - [ ] Reports will be sent to `TuringLang/BenchmarkReports`.
+- [ ] Regression test against previous timings. (see `BenchmarkTools.judge`)
+- [ ] Plot results?
 
 ## Adding Models to Benchmark 
 To add a model to the benchmark, do the following:
