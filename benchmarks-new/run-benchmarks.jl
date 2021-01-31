@@ -1,6 +1,6 @@
 import Pkg; Pkg.activate(".")
 include("src/TuringBenchmarks.jl")
-using .TuringBenchmarks: BenchmarkTools
+using .TuringBenchmarks.BenchmarkTools
 
 # Run benchmarks.
 @time results = run(TuringBenchmarks.suite, verbose=true, samples=10, evals=1)
