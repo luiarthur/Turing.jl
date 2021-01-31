@@ -21,7 +21,7 @@ jobs:
         run: |
           bash -c "
           cd benchmarks-new
-          julia -e 'import Pkg; Pkg.activate(\".\"); Pkg.instantiate()'
+          julia -e 'import Pkg; Pkg.activate(\".\"); Pkg.dev(path=\"..\"); Pkg.instantiate()'
           julia run-benchmarks.jl
           # TODO: Send to BenchmarkReports?
           "
