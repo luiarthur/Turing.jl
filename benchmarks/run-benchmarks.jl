@@ -6,7 +6,7 @@ include("src/TuringBenchmarks.jl")
 @time results = run(TuringBenchmarks.suite, verbose=true, samples=10, evals=1)
 
 # Save results as json file.
-results_path = "results/results.json"
+results_path = "results/benchmarks.json"
 BenchmarkTools.save(results_path, results)
 
 # TODO: Perhaps save all results in `results` in some systematic way, through a

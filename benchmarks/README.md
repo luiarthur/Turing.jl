@@ -1,8 +1,8 @@
 # README
 
 ## TODO
-- [X] Run all benchmark using `julia run-benchmark.jl`
-- [X] Reports will be printed to `results/results.json`, which is ignored by git.
+- [X] Run all benchmark using `julia run-benchmarks.jl`
+- [X] Reports will be printed to `results/benchmarks.json`, which is ignored by git.
 - [X] Benchmarks are triggered by push events on GitHub, via GitHub Actions.
       See `/.github/workflows/Benchmarks.yml`.
 - [ ] Reports will be sent to `TuringLang/BenchmarkReports`.
