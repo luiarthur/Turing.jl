@@ -6,10 +6,6 @@ using Distributions
 using StatsFuns
 import Random
 
-# Are these necessary here?
-using CSV
-using DataFrames
-
 # Import utility functions.
 include("util.jl")
 
