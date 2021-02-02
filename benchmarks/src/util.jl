@@ -8,8 +8,8 @@ const previous_results_filename = "prev-benchmarks.json"
 const results_dir = "results"
 const results_path = joinpath(results_dir, results_filename)
 const previous_results_path = joinpath(results_dir, previous_results_filename)
-const regression_filename = "regression.json"
-const regression_path = joinpath(results_dir, regression_filename)
+const comparisons_filename = "comparisons.json"
+const comparisons_path = joinpath(results_dir, comparisons_filename)
 
 """Gets info for all Turing releases."""
 function get_turing_releases(; url=turing_releases_url)
@@ -46,10 +46,6 @@ function get_latest_benchmarked_release_results(; url=turing_releases_url,
   end
 end
 
-function summary(curr, prev)
-  # TODO
-end
-
 function compare(curr_results, prev_results; time_tolerance=0.05, f=minimum)
   if isnothing(prev_results)
     println("Skipping comparison because no previous benchmarks were found.")
@@ -63,8 +59,6 @@ function compare(curr_results, prev_results; time_tolerance=0.05, f=minimum)
     tolerance_info = "$(time_tolerance * 100)% tolerance"
     println("Current timings vs latest-release timings ($tolerance_info):")
     println(judgement)
-
-    # TODO: Print overall %improvements %regression %invariant.
 
     return judgement
   end

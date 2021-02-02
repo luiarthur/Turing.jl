@@ -22,18 +22,20 @@ suite["linear-regression"] = BenchmarkGroup()
 
 # Add linear regression benchmarks for different settings.
 let
-  for alg in [HMC(0.01, 10), MH()]  # ADVI(num_elbo_samples, max_iters)
+  nleapfrog = 10
+  for alg in [HMC(0.01, nleapfrog), MH()]  # ADVI(num_elbo_samples, max_iters)
     salg = sanitize(alg)
-    suite["linear-regression"]["alg=$salg"] = BenchmarkGroup([string(alg)])
+    suite["linear-regression"]["alg=$salg"] = BenchmarkGroup([salg, string(alg)])
 
-    for numfeatures in (20) # (2, 10, 20, 40)
-      for numobs in (100) # (50, 100, 200, 400)
+    for numfeatures in (2, 4, 8, 16)
+      for numobs in (25, 50, 100, 200)
         label = ["numfeatures=$numfeatures", "numobs=$numobs"]
         y, X = make_linear_regression_data(numobs, numfeatures, seed=0)
         model = linear_regression(y, X)
+        thinning = (salg == "MH") ? nleapfrog : 1
         suite["linear-regression"]["alg=$salg"][label] = @benchmarkable let
           Random.seed!(0)
-          sample($model, $alg, 10, progress=false)
+          sample($model, $alg, 10, progress=false, thinning=$thinning)
         end
       end
     end
