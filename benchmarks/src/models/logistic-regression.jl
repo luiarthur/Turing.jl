@@ -25,7 +25,7 @@ let
   nleapfrog = 10
   for alg in [HMC(0.01, nleapfrog), MH()]  # ADVI(num_elbo_samples, max_iters)
     salg = sanitize(alg)
-    suite["logistic-regression"]["alg=$salg"] = BenchmarkGroup([string(alg)])
+    suite["logistic-regression"]["alg=$salg"] = BenchmarkGroup([salg, string(alg)])
 
     for numfeatures in (2, 4, 8, 16)
       for numobs in (25, 50, 100, 200)
