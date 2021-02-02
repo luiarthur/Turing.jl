@@ -26,13 +26,14 @@ let
     salg = sanitize(alg)
     suite["linear-regression"]["alg=$salg"] = BenchmarkGroup([string(alg)])
 
-    for numfeatures in (2, 10, 20, 40)
-      for numobs in (50, 100, 200, 400)
+    for numfeatures in (20) # (2, 10, 20, 40)
+      for numobs in (100) # (50, 100, 200, 400)
         label = ["numfeatures=$numfeatures", "numobs=$numobs"]
         y, X = make_linear_regression_data(numobs, numfeatures, seed=0)
+        model = linear_regression(y, X)
         suite["linear-regression"]["alg=$salg"][label] = @benchmarkable let
           Random.seed!(0)
-          sample(linear_regression($y, $X), $alg, 10, progress=false)
+          sample($model, $alg, 10, progress=false)
         end
       end
     end

@@ -26,13 +26,14 @@ let
     salg = sanitize(alg)
     suite["logistic-regression"]["alg=$salg"] = BenchmarkGroup([string(alg)])
 
-    for numfeatures in (2, 10, 20, 40)
-      for numobs in (50, 100, 200, 400)
+    for numfeatures in (20) # (2, 10, 20, 40)
+      for numobs in (100) # (50, 100, 200, 400)
         label = ["numfeatures=$numfeatures", "numobs=$numobs"]
         y, X = make_logistic_regression_data(numobs, numfeatures, seed=0)
+        model = logistic_regression(y, X)
         suite["logistic-regression"]["alg=$salg"][label] = @benchmarkable let
           Random.seed!(0)
-          sample(logistic_regression($y, $X), $alg, 10, progress=false)
+          sample($model, $alg, 10, progress=false)
         end
       end
     end

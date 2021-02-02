@@ -5,6 +5,8 @@ using Turing
 using Distributions
 using StatsFuns
 import Random
+using JSON
+using HTTP
 
 # Import utility functions.
 include("util.jl")
