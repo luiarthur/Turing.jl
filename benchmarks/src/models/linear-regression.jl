@@ -27,15 +27,15 @@ let
     salg = sanitize(alg)
     suite["linear-regression"]["alg=$salg"] = BenchmarkGroup([salg, string(alg)])
 
-    for numfeatures in (2, 4, 8, 16)
-      for numobs in (25, 50, 100, 200)
+    for numfeatures in (2, 16)  # (2, 4, 8, 16)
+      for numobs in (25, 200)  # (25, 50, 100, 200)
         label = ["numfeatures=$numfeatures", "numobs=$numobs"]
         y, X = make_linear_regression_data(numobs, numfeatures, seed=0)
         model = linear_regression(y, X)
         thinning = (salg == "MH") ? nleapfrog : 1
+        rng = Random.MersenneTwister(0)
         suite["linear-regression"]["alg=$salg"][label] = @benchmarkable let
-          Random.seed!(0)
-          sample($model, $alg, 10, progress=false, thinning=$thinning)
+          sample($rng, $model, $alg, 10, progress=false, thinning=$thinning)
         end
       end
     end

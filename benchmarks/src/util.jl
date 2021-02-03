@@ -46,14 +46,16 @@ function get_latest_benchmarked_release_results(; url=turing_releases_url,
   end
 end
 
-function compare(curr_results, prev_results; time_tolerance=0.05, f=minimum)
+function compare(curr_results, prev_results; time_tolerance=0.05,
+                 memory_tolerance=0.05, f=minimum)
   if isnothing(prev_results)
     println("Skipping comparison because no previous benchmarks were found.")
     return nothing
   else
     # Compare against previous results.
     judgement = judge(f(curr_results), f(prev_results),
-                      time_tolerance=time_tolerance)
+                      time_tolerance=time_tolerance,
+                      memory_tolerance=memory_tolerance)
 
     # Print differences.
     tolerance_info = "$(time_tolerance * 100)% tolerance"
