@@ -7,23 +7,24 @@ include("src/TuringBenchmarks.jl")
 # Is this a test?
 istest = true
 
+# Warmup
+_ = TuringBenchmarks.warmup(verbose=true, seed=0)
+
 # Run benchmarks.
-Random.seed!(0)
-@time results = run(TuringBenchmarks.suite, verbose=true)
+@time results = TuringBenchmarks.run(verbose=true, seed=0)
 
 # Save results as json file. (To upload to release assets.)
 BenchmarkTools.save(TuringBenchmarks.results_path, results)
 
 # Get previous release benchmarks.
 if istest
-  Random.seed!(0)
-  @time prev_results = r1 = run(TuringBenchmarks.suite, verbose=true)
+  @time prev_results = r1 = TuringBenchmarks.run(verbose=true, seed=0)
 else
   prev_results = TuringBenchmarks.get_latest_benchmarked_release_results()
 end
 
 # Compare current version to latest release. 
-judgement = TuringBenchmarks.compare(results, prev_results, time_tolerance=.05, f=minimum)
+judgement = TuringBenchmarks.compare(results, prev_results, time_tolerance=.05, f=median)
 
 # Save comparisons if available. (To upload to release assets.)
 isnothing(judgement) || BenchmarkTools.save(TuringBenchmarks.comparisons_path, judgement)
