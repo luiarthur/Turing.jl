@@ -66,7 +66,10 @@ function compare(curr_results, prev_results; time_tolerance=0.05,
   end
 end
 
-warmup(; kwargs...) = BenchmarkTools.warmup(suite; kwargs...)
+function warmup(; seed, kwargs...)
+  isnothing(seed) || Random.seed!(seed)
+  BenchmarkTools.warmup(suite; kwargs...)
+end
 
 function run(; seed, kwargs...)
   isnothing(seed) || Random.seed!(seed)
