@@ -1,12 +1,17 @@
 module TuringBenchmarks
 
 using BenchmarkTools
-using Turing
 using Distributions
-using StatsFuns
-import Random
-using JSON
 using HTTP
+using JSON
+import Random
+using StatsFuns
+using Turing
+
+# Benchmark defaults.
+BenchmarkTools.DEFAULT_PARAMETERS.seconds = 600
+BenchmarkTools.DEFAULT_PARAMETERS.samples = 200
+BenchmarkTools.DEFAULT_PARAMETERS.evals = 5
 
 # Import utility functions.
 include("util.jl")
