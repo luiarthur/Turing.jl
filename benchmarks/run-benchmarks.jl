@@ -8,14 +8,18 @@ include("src/TuringBenchmarks.jl")
 istest = true
 
 # Warmup
+println("Warming up benchmarks ...")
 _ = TuringBenchmarks.warmup(verbose=true, seed=0)
 
 # Run benchmarks.
+println("Running benchmarks ...")
 @time results = TuringBenchmarks.run(verbose=true, seed=0)
 
 # Save results as json file. (To upload to release assets.)
 BenchmarkTools.save(TuringBenchmarks.results_path, results)
 
+# TODO: Consider comparing current version (e.g. master or latest git tag) to
+# previous tagged version.
 # Get previous release benchmarks.
 if istest
   @time prev_results = r1 = TuringBenchmarks.run(verbose=true, seed=0)

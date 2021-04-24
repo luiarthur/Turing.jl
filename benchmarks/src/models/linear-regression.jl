@@ -25,8 +25,8 @@ let
   nleapfrog = 10
   for alg in [HMC(0.01, nleapfrog), MH()]  # ADVI(num_elbo_samples, max_iters)
     salg = sanitize(alg)
-    for numfeatures in (2, 16)  # (2, 4, 8, 16)
-      for numobs in (25, 200)  # (25, 50, 100, 200)
+    for numfeatures in (16, )  # (2, 4, 8, 16)
+      for numobs in (200, )  # (25, 50, 100, 200)
         label = join(["alg=$salg", "numfeatures=$numfeatures",
                       "numobs=$numobs"], "_")
         y, X = make_linear_regression_data(numobs, numfeatures, seed=0)
